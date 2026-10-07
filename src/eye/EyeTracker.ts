@@ -161,15 +161,18 @@ export class EyeTracker {
     }
 
     try {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const modelPath = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}face_landmarker.task`;
+
       // Load wasm from CDN (standard MediaPipe Web Tasks delivery)
       const vision = await FilesetResolver.forVisionTasks(
         'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
       );
 
-      // Model is served locally from public/face_landmarker.task
+      // Model is served from public/face_landmarker.task
       this.landmarker = await FaceLandmarker.createFromOptions(vision, {
         baseOptions: {
-          modelAssetPath: '/face_landmarker.task',
+          modelAssetPath: modelPath,
           delegate: 'GPU',
         },
         runningMode: 'VIDEO',
@@ -183,12 +186,14 @@ export class EyeTracker {
       return this.landmarker;
     } catch (e) {
       console.warn('GPU landmarker init failed, retrying with CPU delegate...', e);
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const modelPath = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}face_landmarker.task`;
       const vision = await FilesetResolver.forVisionTasks(
         'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
       );
       this.landmarker = await FaceLandmarker.createFromOptions(vision, {
         baseOptions: {
-          modelAssetPath: '/face_landmarker.task',
+          modelAssetPath: modelPath,
           delegate: 'CPU',
         },
         runningMode: 'VIDEO',

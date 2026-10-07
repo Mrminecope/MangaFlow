@@ -67,3 +67,25 @@ The application will start on `http://0.0.0.0:3000`.
 ```bash
 npm run build
 ```
+
+---
+
+## 🌐 Deploy to GitHub Pages (`github.io`)
+
+This project is pre-configured for deployment to GitHub Pages (e.g. `https://mrminecope.github.io/MangaFlow/`).
+
+### Option 1: Automatic Deployment with GitHub Actions (Recommended)
+A GitHub Actions workflow is included at `.github/workflows/deploy.yml`.
+
+1. Push your repository to GitHub.
+2. In your repository on GitHub, navigate to **Settings** → **Pages**.
+3. Under **Build and deployment** → **Source**, select **GitHub Actions**.
+4. Every push to `main` (or `master`) will automatically build and publish to your GitHub Pages URL:
+   `https://<username>.github.io/<repository-name>/`
+
+### Option 2: Manual Deployment
+You can also build and push directly to the `gh-pages` branch using the included script:
+```bash
+npm run deploy
+```
+
