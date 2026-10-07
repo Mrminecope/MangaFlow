@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#09090b"/>
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <radialGradient id="iris" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="70%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Outer glowing orbital ring -->
+  <circle cx="256" cy="256" r="190" stroke="url(#glow)" stroke-width="14" stroke-opacity="0.8"/>
+  
+  <!-- Stylized Manga book pages background -->
+  <path d="M120 340 C180 320, 240 330, 256 360 C272 330, 332 320, 392 340 L380 370 C330 350, 275 360, 256 390 C237 360, 182 350, 132 370 Z" fill="#6366f1" fill-opacity="0.4"/>
+  
+  <!-- Human Eye contour (Manga art style) -->
+  <path d="M128 256 Q 256 140, 384 256 Q 256 372, 128 256 Z" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="#18181b"/>
+  
+  <!-- Eye Iris -->
+  <circle cx="256" cy="256" r="64" fill="url(#iris)"/>
+  
+  <!-- Eye Pupil -->
+  <circle cx="256" cy="256" r="28" fill="#09090b"/>
+  
+  <!-- Light reflections / manga highlights -->
+  <circle cx="274" cy="238" r="14" fill="#ffffff"/>
+  <circle cx="242" cy="270" r="7" fill="#ffffff" fill-opacity="0.8"/>
+</svg>

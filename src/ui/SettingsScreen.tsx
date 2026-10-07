@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowLeft, RotateCcw, ShieldCheck, Sparkles, Download, CheckCircle2 } from 'lucide-react';
 import { AppSettings, ScrollMode } from '../types';
 import { settingsRepository } from '../data/SettingsRepository';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface SettingsScreenProps {
   onBack: () => void;
@@ -234,6 +235,20 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack, onCalibr
             </div>
           </section>
         </div>
+
+        {/* Download App / Installation Card */}
+        <section className="bg-gradient-to-br from-neutral-900/90 to-neutral-900/50 border border-sky-500/30 rounded-2xl p-6 space-y-4 shadow-lg">
+          <div className="flex items-center gap-2.5 text-neutral-100">
+            <Download className="w-5 h-5 text-sky-400" />
+            <h2 className="text-lg font-semibold tracking-tight">Download & Install MangaFlow</h2>
+          </div>
+          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            Install MangaFlow as a standalone Progressive Web App (PWA) on Android, iPad, iPhone, Mac, Windows, or Linux. Enjoy an immersive full-screen reader experience, complete offline capability, and quick home screen access.
+          </p>
+          <div className="pt-1 max-w-sm">
+            <PWAInstallButton variant="full" />
+          </div>
+        </section>
 
         {/* Privacy Card */}
         <section className="bg-neutral-900/40 border border-neutral-800/60 rounded-2xl p-6 space-y-3">

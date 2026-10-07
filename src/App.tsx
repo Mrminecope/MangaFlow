@@ -3,6 +3,7 @@ import { LibraryScreen } from './ui/LibraryScreen';
 import { ReaderScreen } from './ui/ReaderScreen';
 import { SettingsScreen } from './ui/SettingsScreen';
 import { CalibrationScreen } from './ui/CalibrationScreen';
+import { OfflineIndicator } from './ui/OfflineIndicator';
 
 type Screen =
   | { route: 'library' }
@@ -45,36 +46,45 @@ export const App: React.FC = () => {
     }
   };
 
-  switch (currentScreen.route) {
-    case 'reader':
-      return (
-        <ReaderScreen
-          mangaId={currentScreen.id}
-          onBack={goBack}
-          onSettings={() => navigate({ route: 'settings' })}
-        />
-      );
+  const renderScreen = () => {
+    switch (currentScreen.route) {
+      case 'reader':
+        return (
+          <ReaderScreen
+            mangaId={currentScreen.id}
+            onBack={goBack}
+            onSettings={() => navigate({ route: 'settings' })}
+          />
+        );
 
-    case 'settings':
-      return (
-        <SettingsScreen
-          onBack={goBack}
-          onCalibrate={() => navigate({ route: 'calibration' })}
-        />
-      );
+      case 'settings':
+        return (
+          <SettingsScreen
+            onBack={goBack}
+            onCalibrate={() => navigate({ route: 'calibration' })}
+          />
+        );
 
-    case 'calibration':
-      return <CalibrationScreen onBack={goBack} />;
+      case 'calibration':
+        return <CalibrationScreen onBack={goBack} />;
 
-    case 'library':
-    default:
-      return (
-        <LibraryScreen
-          onOpen={(id) => navigate({ route: 'reader', id })}
-          onSettings={() => navigate({ route: 'settings' })}
-        />
-      );
-  }
+      case 'library':
+      default:
+        return (
+          <LibraryScreen
+            onOpen={(id) => navigate({ route: 'reader', id })}
+            onSettings={() => navigate({ route: 'settings' })}
+          />
+        );
+    }
+  };
+
+  return (
+    <>
+      {renderScreen()}
+      <OfflineIndicator />
+    </>
+  );
 };
 
 export default App;

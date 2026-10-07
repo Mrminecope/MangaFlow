@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Manga } from '../types';
 import { libraryRepository } from '../data/LibraryRepository';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface LibraryScreenProps {
   onOpen: (id: string) => void;
@@ -155,14 +156,17 @@ export const LibraryScreen: React.FC<LibraryScreenProps> = ({ onOpen, onSettings
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={onSettings}
-          className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-neutral-800 transition-colors text-neutral-300 hover:text-white"
-          aria-label="Settings"
-        >
-          <Settings className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-2">
+          <PWAInstallButton variant="compact" />
+          <button
+            type="button"
+            onClick={onSettings}
+            className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-neutral-800 transition-colors text-neutral-300 hover:text-white"
+            aria-label="Settings"
+          >
+            <Settings className="w-5 h-5" />
+          </button>
+        </div>
       </header>
 
       {/* Main Content Area */}
