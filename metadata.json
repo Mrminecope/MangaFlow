@@ -1,0 +1,8 @@
+{
+  "name": "MangaFlow",
+  "description": "Hands-free manga reader powered by on-device eye tracking with MediaPipe and webcam.",
+  "prompt": "Hands-free manga reader for tablets and desktop powered by on-device eye tracking.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

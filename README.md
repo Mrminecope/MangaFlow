@@ -1,77 +1,69 @@
 # MangaFlow 📖👀
 
-> **Hands-free manga reader for Android tablets** powered by on-device eye tracking with CameraX and MediaPipe. Built using Kotlin, Jetpack Compose, and MVVM architecture.
+> **Hands-free manga reader for desktop & tablets** powered by on-device eye tracking with MediaPipe Face Landmarker. Built using React, TypeScript, Vite, and Tailwind CSS.
 
 ---
 
 ## ✨ Features
 
 - **Hands-Free Eye Tracking Control**:
-  - Uses the front camera with **CameraX** + **MediaPipe Face Landmarker** (478 3D landmarks + 52 blendshapes).
+  - Uses the front camera with **MediaPipe Tasks Vision Face Landmarker** (478 3D landmarks + 52 blendshapes).
   - Normal blinks (~100–300 ms) are automatically filtered and ignored.
   - Closing both eyes for ~700–1000 ms triggers a smooth scroll step downward.
-  - Requires reopening eyes before another scroll can be initiated (anti-runaway latch).
-  - Independent eye evaluation (minimum of left & right closure) prevents unintentional scrolls from one-eye winks.
+  - Anti-runaway latch: requires reopening eyes before another scroll can be initiated.
+  - Independent eye evaluation (`min(leftBlink, rightBlink)`) prevents unintentional scrolls from one-eye winks.
+  - Real-time circular progress indicator ring for visual feedback.
+  - Fallback / simulation controls (Spacebar or interactive HUD tap) for testing without a webcam.
+
 - **Reading Modes**:
-  - **Manual Scroll**: Each intentional long close triggers an animated smooth step down.
-  - **Auto Scroll**: Pages scroll smoothly and continuously. Closing eyes pauses or resumes auto-scrolling. Pauses automatically if the user touches/drags the screen.
+  - **Manual Scroll**: Each intentional long eye closure triggers an animated smooth step down (% of viewport).
+  - **Auto Scroll**: Pages scroll smoothly and continuously. Closing eyes pauses or resumes auto-scrolling. Pauses automatically if the user touches, scrolls, or drags the screen.
+
 - **Manga Library & Import Support**:
-  - Import loose images (`.jpg`, `.jpeg`, `.png`, `.webp`, etc.).
-  - Import entire folders via the Android Storage Access Framework (SAF) folder picker.
-  - Import `.cbz` comic archives with secure extraction and natural numeric ordering (e.g., `page_2` before `page_10`).
-  - Stored safely in app-private storage without requiring risky storage permissions.
-- **Tablet-Optimized UI**:
-  - Continuous vertical reading experience (`LazyColumn`).
-  - Adaptive layout with column width capped at 900dp for comfortable aspect ratios on 10"–13" tablet displays.
-  - Adaptive multi-column grid in Library and dual-pane layout in Settings for tablets.
-  - Predictive prefetching (3 pages ahead) using Coil with downsampled sizing for fast, stutter-free scrolling.
-  - Quick-seeking page scrubber slider and auto-saved reading progress.
+  - Import loose images (`.jpg`, `.jpeg`, `.png`, `.webp`, `.avif`, etc.).
+  - Import entire folders via the directory picker.
+  - Import `.cbz` and `.zip` comic archives with client-side extraction and natural numeric ordering (e.g., `page_2` before `page_10`).
+  - Stored safely in browser **IndexedDB** for persistent offline reading.
+  - Built-in sample manga chapter for immediate hands-free reading out of the box.
+
+- **Tablet & Desktop Optimized UI**:
+  - Continuous vertical reading experience with adaptive width capped at 900px for optimal aspect ratios.
+  - Adaptive multi-column grid in Library and dual-pane layout in Settings.
+  - Quick-seeking page scrubber slider and auto-saved reading progress per manga.
+  - Fullscreen reading mode support.
+
 - **Customizable Controls & Calibration**:
-  - Interactive eye calibration wizard with real-time feedback and audio cues to measure individual baseline open/closed eye scores.
+  - Interactive eye calibration wizard with real-time feedback and audio cues (Web Audio API synthesised beeps) to measure individual baseline open/closed eye scores.
   - Adjustable scroll speed, scroll distance (% of viewport), eye-close duration threshold, sensitivity, and cooldown interval.
+
 - **Strict On-Device Privacy 🔒**:
-  - **Zero Network Permissions**: The app does not request or include `android.permission.INTERNET`.
   - Camera frames are processed strictly in memory by MediaPipe and recycled immediately.
-  - No photos or videos are ever recorded, saved, or uploaded.
+  - Zero external recording, saving, or uploading of video frames.
 
 ---
 
 ## 🛠 Tech Stack & Architecture
 
-- **Language**: Kotlin 1.9
-- **UI Toolkit**: Jetpack Compose with Material Design 3
-- **Architecture**: MVVM with unidirectional data flow (UDF) + Coroutines Flow / StateFlow
-- **Computer Vision**: Google MediaPipe Tasks Vision (`FaceLandmarker` with live stream mode) + AndroidX CameraX
-- **Image Loading**: Coil 2.7 with lifecycle management and downsampled memory caching
-- **Storage / Preferences**: Jetpack DataStore Preferences
-- **Build System**: Gradle 8.7 with Kotlin DSL
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite 6
+- **Styling**: Tailwind CSS
+- **Computer Vision**: `@mediapipe/tasks-vision` Face Landmarker
+- **Storage**: IndexedDB (`idb`) & `localStorage`
+- **Archive Extraction**: `jszip`
+- **Icons**: Lucide React
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Android Studio Hedgehog / Koala or newer
-- JDK 17
-- Android SDK with `minSdk = 26` (Android 8.0+) and `compileSdk = 34`
-- A physical tablet or tablet emulator equipped with a front-facing camera
+### Development
+```bash
+npm install
+npm run dev
+```
+The application will start on `http://0.0.0.0:3000`.
 
-### Building & Running
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Mrminecope/MangaFlow.git
-   cd MangaFlow
-   ```
-2. Open the project in Android Studio or build using the included Gradle wrapper:
-   ```bash
-   ./gradlew assembleDebug
-   ```
-3. Install the APK onto your device or emulator:
-   ```bash
-   ./gradlew installDebug
-   ```
-
----
-
-## 📄 License
-This project is licensed under the Apache 2.0 License.
+### Building
+```bash
+npm run build
+```
